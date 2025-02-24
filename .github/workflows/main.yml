@@ -26,4 +26,22 @@ jobs:
           docker tag my-node-app:latest prateek9814/my-node-app:latest
           docker push prateek9814/my-node-app:latest
 
+      - name: Deploy to Kubernetes
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          kubectl apply -f deployment.yaml
+          kubectl rollout status deployment/my-node-app
+
+      - name: Check deployment status
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          if ! kubectl rollout status deployment/my-node-app; then
+            echo "Deployment failed, rolling back..."
+            kubectl rollout undo deployment/my-node-app
+          fi
+
+
+        
       
