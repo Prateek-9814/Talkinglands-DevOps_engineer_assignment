@@ -1,20 +1,12 @@
-# Use an official Node.js runtime as the base image
-FROM node:18-alpine
+FROM python:3.9
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY requirements.txt .
 
-# Install dependencies
-RUN npm install
+RUN pip install -r requirements.txt
 
-# Copy the rest of the application files
-COPY . .
+COPY app.py .
 
-# Expose the port the app runs on
-EXPOSE 3000
+CMD ["python", "app.py"]
 
-# Command to start the application
-CMD ["node", "server.js"]
