@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world-deployment
+  name: my-app-deployment
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hello-world
+      app: my-app
   template:
     metadata:
       labels:
-        app: hello-world
+        app: my-app
     spec:
       containers:
-      - name: hello-world
-        image: paulbouwer/hello-kubernetes:latest
+      - name: my-app
+        image: prateek9814/python
         ports:
-        - containerPort: 8080
+        - containerPort: 5000
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-world-service
+  name: my-app-service
 spec:
   selector:
-    app: hello-world
+    app: my-app
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 8080
+    targetPort: 5000
   type: LoadBalancer
 
