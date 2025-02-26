@@ -26,6 +26,11 @@ jobs:
           docker tag my-node-app:latest prateek9814/my-node-app:latest
           docker push prateek9814/my-node-app:latest
 
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" > ./kubeconfig
+          export KUBECONFIG=./kubeconfig
+
       - name: Deploy to Kubernetes
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
@@ -41,7 +46,4 @@ jobs:
             echo "Deployment failed, rolling back..."
             kubectl rollout undo deployment/my-node-app
           fi
-
-
-        
-      
+          
