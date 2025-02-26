@@ -28,15 +28,12 @@ jobs:
 
       - name: Configure kubectl
         run: |
-          echo "${{ secrets.KUBECONFIG }}" > ./kubeconfig
+          echo "${{ secrets.KUBECONFIG_CONTENTS }}" > ./kubeconfig
           export KUBECONFIG=./kubeconfig
 
-      - name: Deploy to Kubernetes
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      - name: Apply deployment
         run: |
           kubectl apply -f deployment.yaml
-          kubectl rollout status deployment/my-node-app
 
       #- name: Check deployment status
        # env:
