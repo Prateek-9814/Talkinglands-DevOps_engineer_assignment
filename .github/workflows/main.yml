@@ -33,12 +33,12 @@ jobs:
           KUBECONFIG=./kubeconfig kubectl apply -f deploy.yaml
 
       
-      #- name: Check deployment status
-       # env:
-        #  KUBECONFIG: ${{ secrets.KUBECONFIG }}
-        #run: |
-         # if ! kubectl rollout status deployment/my-node-app; then
-         #   echo "Deployment failed, rolling back..."
-          #  kubectl rollout undo deployment/my-node-app
-          #fi
+      - name: Check deployment status
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          if ! kubectl rollout status deployment/my-node-app; then
+            echo "Deployment failed, rolling back..."
+            kubectl rollout undo deployment/my-node-app
+          fi
           
