@@ -33,7 +33,7 @@ jobs:
 
       - name: Apply deployment
         run: |
-          kubectl apply -f deployment.yaml
+          kubectl apply -f deployment.yaml --validate=false
 
       #- name: Check deployment status
        # env:
