@@ -23,8 +23,8 @@ jobs:
       - name: Build and package Docker image
         run: |
           docker build -t my-node-app .
-          docker tag my-node-app:latest prateek9814/python:latest
-          docker push prateek9814/python:latest
+          docker tag my-node-app:latest prateek9814/my-node-app:latest
+          docker push prateek9814/my-node-app:latest
 
       - name: Deploy to Kubernetes
         env:
